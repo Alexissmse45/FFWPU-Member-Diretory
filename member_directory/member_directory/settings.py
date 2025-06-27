@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'academicbackground',  # Your app name
+    'awardrecognitions',  # Your app name
 ]
 
 MIDDLEWARE = [
