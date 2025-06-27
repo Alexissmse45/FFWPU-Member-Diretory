@@ -1,0 +1,109 @@
+.sidebar {
+  position: fixed;
+  top: 78px; /* match your header height */
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 78px);
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  padding: 1rem;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  z-index: 999;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  font-size: 15px;          /* ⬅ increase font size */
+  font-weight: 500;         /* ⬅ make it bolder */
+  letter-spacing: 0.5px;    /* ⬅ optional: spacing between letters */
+
+
+
+  padding: 0.5rem ;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: color 0.2s;
+  height: 30px;
+  border-radius: 50px;               /* sphere/rounded effect */
+  width: 190px;                 /* fit to text */
+
+}
+
+.nav-links li:hover {
+  background-color: #064983;          /* blue or your theme color */
+  color: white;  
+}
+
+.nav-icon{
+  width: 20px;     /* or adjust depending on your image */
+  height: 20px;
+  object-fit: contain;
+
+}
+
+/* Shared styles */
+.nav-item {
+  display: flex;
+  align-items: center;        /* ✅ Vertical center */
+  justify-content: center;    /* ✅ Horizontal center */
+  gap: 0.5rem;                /* space between icon and text */
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.2s, color 0.2s;
+  height: 36px;
+  border-radius: 50px;
+  width: 184px;
+  color: black;
+  text-align: center;
+}
+
+.nav-item:hover {
+  background-color: #064983;
+  color: white;
+}
+
+/* Icon style */
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  transition: filter 0.2s ease;
+}
+
+/* DASHBOARD icon: black -> white on hover */
+.dashboard .dashboard-icon {
+  filter: brightness(0); /* black */
+}
+
+.dashboard:hover .dashboard-icon {
+  filter: brightness(1000%) invert(1); /* simulate white */
+}
+
+/* Default (black icon) */
+.members .member-icon {
+  filter: invert(100%);
+  
+}
+
+/* On hover — turn the black pixels to white */
+.members:hover .member-icon {
+  filter: none;
+}
+
