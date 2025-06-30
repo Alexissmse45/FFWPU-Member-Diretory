@@ -1,9 +1,7 @@
 import React from 'react';
 import '../assets/style/Sidebar.css';
 import memberIcon from '../assets/Sidebar/member.png';
-import dashboardIcon from '../assets/Sidebar/dashboard.png'; // white version
-// import dashboardIconHover from '../assets/dashboard-hover.png'; // dark/white hover version
-// import memberIconHover from '../assets/member-white.png'; // white version of member icon
+import dashboardIcon from '../assets/Sidebar/dashboard.png'; 
 
 function Sidebar () {
   return (
