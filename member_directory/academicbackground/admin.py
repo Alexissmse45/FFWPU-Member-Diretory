@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import AcademicRecord
+from .models import AcademicBackground
 
-admin.site.register(AcademicRecord)
+admin.site.register(AcademicBackground)

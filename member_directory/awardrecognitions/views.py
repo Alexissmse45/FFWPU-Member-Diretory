@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from rest_framework import viewsets
 from .models import Award
+from .serializers import AwardSerializer
 
-def award_list(request):
-    awards = Award.objects.all().values()
-    return JsonResponse(list(awards), safe=False)
+class AwardViewSet(viewsets.ModelViewSet):
+    queryset = Award.objects.all()
+    serializer_class = AwardSerializer
+

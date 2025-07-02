@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http import JsonResponse
-from .models import AcademicRecord
 
-def academic_records_list(request):
-    records = AcademicRecord.objects.all().values()
-    return JsonResponse(list(records), safe=False)
+from rest_framework import viewsets
+from .models import AcademicBackground
+from .serializers import AcademicBackgroundSerializer
+
+class AcademicBackgroundViewSet(viewsets.ModelViewSet):
+    queryset = AcademicBackground.objects.all()
+    serializer_class = AcademicBackgroundSerializer

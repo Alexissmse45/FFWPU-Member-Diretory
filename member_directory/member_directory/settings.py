@@ -37,9 +37,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework', 
 
     'academicbackground',  # Your app name
+    'adminaccess',  # Your app name
+    'auditlog',  # Your app name
     'awardrecognitions',  # Your app name
+    'disciplinaryactions',  # Your app name
+    # 'roles_permission',  # Your app name
+    # 'audit_log',  # Your app name
+    # 'personnel',  # Your app name
+    # 'specialnotes',  # Your app name
+    # 'workexperience',  # Your app name
+
+    # 'familydetails',  # Your app name
+    # 'trainingcourses',  # Your app name
+    # 'publicmissionposts',  # Your app name
+    # 'professionalqualifications',  # Your app name
 ]
 
 MIDDLEWARE = [
