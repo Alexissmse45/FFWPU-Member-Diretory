@@ -1,0 +1,48 @@
+{
+	"folders": [
+		{
+			"name": "member_dir_backend",
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.colorCustomizations": {
+			"activityBar.activeBackground": "#450292",
+			"activityBar.background": "#450292",
+			"activityBar.foreground": "#e7e7e7",
+			"activityBar.inactiveForeground": "#e7e7e799",
+			"activityBarBadge.background": "#9d4a02",
+			"activityBarBadge.foreground": "#e7e7e7",
+			"commandCenter.border": "#e7e7e799",
+			"sash.hoverBorder": "#450292",
+			"statusBar.background": "#2d0160",
+			"statusBar.foreground": "#e7e7e7",
+			"statusBarItem.hoverBackground": "#450292",
+			"statusBarItem.remoteBackground": "#2d0160",
+			"statusBarItem.remoteForeground": "#e7e7e7",
+			"titleBar.activeBackground": "#2d0160",
+			"titleBar.activeForeground": "#e7e7e7",
+			"titleBar.inactiveBackground": "#2d016099",
+			"titleBar.inactiveForeground": "#e7e7e799"
+		},
+		"peacock.color": "#2d0160",
+		"folder-color.pathColors": [
+			{
+				"folderPath": "member_dir_backend\\",
+				"color": "foldercolorizer.color_33ccff"
+			},
+			{
+				"folderPath": "member_dir_backend\\admin_login\\",
+				"color": "foldercolorizer.color_00cc66"
+			},
+			{
+				"folderPath": "member_dir_backend\\manage.py\\",
+				"color": "foldercolorizer.color_666666"
+			},
+			{
+				"folderPath": "member_dir_backend\\.vscode\\",
+				"color": "foldercolorizer.color_666666"
+			}
+		]
+	}
+}
