@@ -36,5 +36,9 @@
             "folderPath": "member_dir_backend\\.vscode\\",
             "color": "foldercolorizer.color_666666"
         },
+        {
+            "folderPath": "member_dir_backend\\directory\\",
+            "color": "foldercolorizer.color_996699"
+        }
     ]
 }
