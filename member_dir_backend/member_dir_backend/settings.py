@@ -20,6 +20,13 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+#Cloudinary configuration
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -57,7 +64,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     "rest_framework",
-    "corsheaders",    
+    "corsheaders",
+    "cloudinary",
+    "cloudinary_storage",
     # "django_cognito_jwt",
 
     "admin_login",
@@ -99,16 +108,28 @@ WSGI_APPLICATION = 'member_dir_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'FFWPU-member-directory',
+#         'USER': 'postgres',
+#         'PASSWORD': 'admin',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'FFWPU-member-directory',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'PASSWORD': 'vqCBHCDymSKhiINxvsIqLCxFBvAILpHt',
+        'HOST': 'crossover.proxy.rlwy.net',
+        'PORT': '55194',
     }
 }
+
 
 
 # Password validation
@@ -155,3 +176,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWS_CREDENTIALS = True
+
+#Cloudinary integration
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'debx9uf7g',
+    'API_KEY': '478588242586261',
+    'API_SECRET': 'ylhT2tOl3Din6EkehEYNTupOc7g',
+}

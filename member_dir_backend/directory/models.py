@@ -1,5 +1,42 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password, check_password
+from cloudinary.models import CloudinaryField
+
+
+class AdminAccount(models.Model):
+    SUPERADMIN = 'superadmin'
+    ADMIN = 'admin'
+    
+    PERMISSION_CHOICES = [
+        (SUPERADMIN, 'Super Admin'),
+        (ADMIN, 'Admin'),
+    ]
+    
+    account_id = models.CharField(primary_key=True, max_length=255)
+    email = models.EmailField(max_length=100, null=False, blank=False)
+    name = models.CharField(max_length=100, default="Admin")
+    password = models.CharField(max_length=255)
+    img_path = CloudinaryField('image', null=True, blank=True)
+    permission = models.CharField(max_length=50, choices=PERMISSION_CHOICES, default=ADMIN)
+    
+    class Meta:
+        db_table = 'admin_account'
+    
+    def set_password(self, raw_password):
+        self.password = make_password(raw_password)
+    
+    def check_password(self, raw_password):
+        return check_password(raw_password, self.password)
+    
+    def is_superadmin(self):
+        return self.permission == self.SUPERADMIN
+    
+    def is_admin(self):
+        return self.permission == self.ADMIN
+    
+    def __str__(self):
+        return f"{self.name} ({self.permission})"
 
 class Member(models.Model):
     MALE = 'Male'
@@ -11,7 +48,7 @@ class Member(models.Model):
     ]   
 
     member_id = models.CharField(primary_key=True, max_length=255)
-    #profile_photo_url =
+    profile_photo_url = CloudinaryField('image', null=True, blank=True)
     full_name = models.CharField(max_length=100, null=False, blank=False)
     region = models.CharField(max_length=100, null=False, blank=False)
     nation = models.CharField(max_length=100, null=False, blank=False)
@@ -24,7 +61,7 @@ class Member(models.Model):
     position = models.CharField(max_length=100, null=True, blank=True)
     blessing = models.CharField(max_length=100, null=False, blank=False)
     date_of_joining = models.DateField(null=False, blank=False)
-    email = models.CharField(max_length=100, null=False, blank=False)
+    email = models.EmailField(max_length=100, null=False, blank=False)
     phone_no = models.CharField(max_length=20, null=False, blank=False)
     address = models.TextField(null=False, blank=False) 
     is_deleted = models.BooleanField(default=False)
@@ -34,14 +71,13 @@ class Member(models.Model):
         return self.full_name
     
     class Meta:
-        db_table = '"member"."member"'
+        db_table = 'member'
         verbose_name = "Member"
         verbose_name_plural = "Members"
-        managed = False
 
 class AcademicBackground(models.Model):
     academic_record_id = models.CharField(primary_key=True, max_length=255)
-    member = models.ForeignKey(Member, on_delete=models.CASCADE, null=False, blank=False, db_column='member_id')
+    member_id1 = models.ForeignKey(Member, on_delete=models.CASCADE, null=False, blank=False, db_column='member_id')
     period = models.CharField(max_length=100, null=False, blank=False)
     school = models.CharField(max_length=255, null=False, blank=False)
     degree = models.CharField(max_length=255, null=False, blank=False)
@@ -51,24 +87,22 @@ class AcademicBackground(models.Model):
         return f"{self.degree} from {self.school} ({self.period})"
     
     class Meta:
-        db_table = '"member"."academic_background"'
+        db_table = 'academic_background'
         verbose_name = "Academic Background"
         verbose_name_plural = "Academic Backgrounds"
-        managed = False
     
 class FamilyDetail(models.Model):
     family_member_id = models.CharField(primary_key=True, max_length=255)
-    member = models.ForeignKey(Member, on_delete=models.CASCADE, db_column='member_id')
+    member_id = models.ForeignKey(Member, on_delete=models.CASCADE, db_column='member_id')
     relation = models.CharField(max_length=100, null=True, blank=True)
     name = models.CharField(max_length=100, null=False, blank=False)
     birthday = models.DateField(null=True, blank=True)
     blessing = models.CharField(max_length=100, null=False, blank=False)
 
     class Meta:
-        db_table = '"member"."family_detail"'
+        db_table = 'family_detail'
         verbose_name = "Family Detail"
         verbose_name_plural = "Family Details"
-        managed = False
 
 
 class PublicMissionPost(models.Model):
@@ -81,10 +115,9 @@ class PublicMissionPost(models.Model):
     description = models.TextField(null=True, blank=True)
 
     class Meta:
-        db_table = '"member"."public_mission_post"'
+        db_table = 'public_mission_post'
         verbose_name = "Public Mission Post"
         verbose_name_plural = "Public Mission Posts"
-        managed = False
 
 
 class WorkExperience(models.Model):
@@ -97,10 +130,9 @@ class WorkExperience(models.Model):
     job_description = models.TextField(null=True, blank=True)
 
     class Meta:
-        db_table = '"member"."work_experience"'
+        db_table = 'work_experience'
         verbose_name = "Work Experience"
         verbose_name_plural = "Work Experiences"
-        managed = False
 
 
 class TrainingCourse(models.Model):
@@ -113,10 +145,9 @@ class TrainingCourse(models.Model):
     status = models.CharField(max_length=50, null=True, blank=True)
 
     class Meta:
-        db_table = '"member"."training_course"'
+        db_table = 'training_course'
         verbose_name = "Training Course"
         verbose_name_plural = "Training Courses"
-        managed = False
 
 
 class Qualification(models.Model):
@@ -127,10 +158,9 @@ class Qualification(models.Model):
     remarks = models.TextField(null=True, blank=True)
 
     class Meta:
-        db_table = '"member"."qualification"'
+        db_table = 'qualification'
         verbose_name = "Qualification"
         verbose_name_plural = "Qualifications"
-        managed = False
 
 
 class AwardsRecognition(models.Model):
@@ -142,10 +172,9 @@ class AwardsRecognition(models.Model):
     organization = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
-        db_table = '"member"."awards_recognition"'
+        db_table = 'awards_recognition'
         verbose_name = "Award/Recognition"
         verbose_name_plural = "Awards & Recognitions"
-        managed = False
 
 
 class DisciplinaryAction(models.Model):
@@ -155,10 +184,9 @@ class DisciplinaryAction(models.Model):
     reason = models.TextField(null=False, blank=False)
 
     class Meta:
-        db_table = '"member"."disciplinary_action"'
+        db_table = 'disciplinary_action'
         verbose_name = "Disciplinary Action"
         verbose_name_plural = "Disciplinary Actions"
-        managed = False
 
 
 class SpecialNote(models.Model):
@@ -168,25 +196,8 @@ class SpecialNote(models.Model):
     details = models.TextField(null=True, blank=True)
 
     class Meta:
-        db_table = '"member"."special_note"'
+        db_table = 'special_note'
         verbose_name = "Special Note"
         verbose_name_plural = "Special Notes"
-        managed = False
-
-
-class AdminAccount(models.Model):
-    account_id = models.CharField(primary_key=True, max_length=255)
-    email = models.CharField(max_length=255, null=False, blank=False)
-    name = models.CharField(max_length=100, null=True, blank=True)
-    password = models.CharField(max_length=255, null=False, blank=False)
-    img_path = models.CharField(max_length=255, null=True, blank=True)
-    permission = models.CharField(max_length=50, null=True, blank=True)
-
-    class Meta:
-        db_table = '"admin"."admin_account"'
-        verbose_name = "Admin Account"
-        verbose_name_plural = "Admin Accounts"
-        managed = False
-
 
 

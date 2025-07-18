@@ -1,5 +1,40 @@
 from rest_framework import serializers
-from .models import Member, AcademicBackground, FamilyDetail, PublicMissionPost, WorkExperience, TrainingCourse, Qualification, AwardsRecognition, DisciplinaryAction, SpecialNote
+from .models import AdminAccount, Member, AcademicBackground, FamilyDetail, PublicMissionPost, WorkExperience, TrainingCourse, Qualification, AwardsRecognition, DisciplinaryAction, SpecialNote
+
+
+class AdminAccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AdminAccount
+        fields = ['account_id', 'email', 'name', 'password', 'img_path', 'permission']
+        read_only_fields = ['account_id']
+
+class CreateAdminAccountSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, min_length=6)
+    confirm_password = serializers.CharField(write_only=True)
+    
+    class Meta:
+        model = AdminAccount
+        fields = ['email', 'name', 'password', 'confirm_password', 'img_path', 'permission']
+    
+    def validate(self, data):
+        if data['password'] != data['confirm_password']:
+            raise serializers.ValidationError("Passwords don't match")
+        return data
+    
+    def create(self, validated_data):
+        # Remove confirm_password from validated_data
+        validated_data.pop('confirm_password', None)
+        validated_data.pop('account_id', None)  # account_id is not set during creation
+        
+        # Create admin account
+        admin = AdminAccount(**validated_data)
+        admin.set_password(validated_data['password'])
+        admin.save()
+        return admin
+
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField()
 
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
